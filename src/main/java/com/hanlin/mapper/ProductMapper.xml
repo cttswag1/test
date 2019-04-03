@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.hanlin.mapper.ProductMapper">
+ 
+       <select id="getList" resultType="Product">
+          SELECT * FROM product
+       </select>
+       
+       <insert id="addZhong" parameterType="OrderItem">
+                insert into orderitem (ordernumber, pid)
+              values (#{ordernumber,jdbcType=VARCHAR}, #{pid,jdbcType=INTEGER})
+       </insert>  
+        <select id="selectPrice"  resultType="Product">
+             SELECT * FROM product WHERE id in
+             <foreach collection="array" item="b" open="("  separator="," close=")" >
+ 	 		 #{b}
+ 	         </foreach>
+        </select>
+        <insert id="addDingdan"  parameterType="Orders">
+           insert into orders (ordernumber, totalprice)
+        values (#{ordernumber,jdbcType=VARCHAR}, #{totalprice,jdbcType=INTEGER})
+        </insert>
+        <select id="getDingdanList" resultType="Orders">
+         SELECT * FROM orders WHERE ORDERNUMBER	=#{ordernumber}
+        </select>
+  </mapper>
+  
+  
